@@ -10,18 +10,18 @@ module.exports = {
         const { author } = message;
         const { id } = author;
 
-        function sendEmbed(requestType, resinAmount) {
+        function sendEmbed(requestType, resinAmount, emote) {
             let title = '';
 
             if (requestType === 'read') {
                 title = `${author.username}'s resin count`;
             } else if (requestType === 'write') {
                 title = 'Updated resin count!';
+            } else if (requestType === 'err') {
+                title = 'Updated resin count!';
             }
 
-            const resinEmoji = client.emojis.cache.find(
-                (emoji) => emoji.name === 'Aether_fragileresin'
-            );
+            const emoji = client.emojis.cache.find((emoji) => emoji.name === emote);
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
@@ -36,7 +36,10 @@ module.exports = {
             await mongo().then(async (mongoose) => {
                 try {
                     const resin = await schema.findById(id);
-                    sendEmbed('read', resin.resinCount);
+                    if (resin === null) throw 'empty';
+                    sendEmbed('read', resin.resinCount, 'Aether_fragileresin');
+                } catch (e) {
+                    sendEmbed('rusak', 'kw habis ngapain pantek', 'x');
                 } finally {
                     mongoose.connection.close();
                 }
@@ -44,6 +47,7 @@ module.exports = {
         } else {
             await mongo().then(async (mongoose) => {
                 try {
+                    if (isNaN(args)) throw 'NaN';
                     await schema.findByIdAndUpdate(
                         id,
                         {
@@ -54,6 +58,8 @@ module.exports = {
                         }
                     );
                     sendEmbed('write', args);
+                } catch (e) {
+                    sendEmbed('rusak', 'kw habis ngapain pantek', 'x');
                 } finally {
                     mongoose.connection.close();
                 }
