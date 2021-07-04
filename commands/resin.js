@@ -30,6 +30,32 @@ module.exports = {
             message.channel.send(embed);
         }
 
+        if (text === 'zero') {
+            await mongo().then(async (mongoose) => {
+                try {
+                    await schema.findByIdAndUpdate(
+                        id,
+                        {
+                            resinCount: 0,
+                        },
+                        {
+                            upsert: true,
+                        }
+                    );
+                    sendEmbed('write', args);
+                } catch (e) {
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle('rusak')
+                        .setDescription('❌ kw habis ngapain pantek');
+
+                    message.channel.send(embed);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
+            return;
+        }
+
         args = +args;
 
         if (!args) {
