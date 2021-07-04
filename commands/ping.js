@@ -5,7 +5,7 @@ module.exports = {
     callback: (client, message, args, text) => {
         message.channel.send('Pinging...').then((m) => {
             var ping = m.createdTimestamp - message.createdTimestamp;
-            var botPing = Math.round(ping.pi);
+            var botPing = Math.round(ping);
 
             m.edit(`**:ping_pong: ${botPing}ms`);
         });
