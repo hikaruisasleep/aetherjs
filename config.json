@@ -1,4 +1,3 @@
 {
-    "prefix": "]",
-    "mongoPath": "mongodb://localhost:27017/aether"
+    "prefix": "]"
 }
