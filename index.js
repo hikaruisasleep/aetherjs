@@ -50,7 +50,7 @@ client.on('ready', async () => {
                     }
 
                     docs.forEach(async (doc) => {
-                        if (doc.resinCount === 160) {
+                        if (doc.resinCount >= 160) {
                             return;
                         }
                         doc.resinCount++;
