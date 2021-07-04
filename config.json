@@ -1,7 +1,4 @@
 {
-    "prefixes": [
-        "<@463998360316018688>",
-        "<@!463998360316018688>"
-    ],
-    "mongoPath": "mongodb://localhost:27017"
+    "prefix": "]",
+    "mongoPath": "mongodb://localhost:27017/aether"
 }
