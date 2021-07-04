@@ -22,7 +22,7 @@ module.exports = {
             }
 
             // eslint-disable-next-line no-shadow
-            const emoji = client.emojis.cache.find((emoji) => emoji.name === emote);
+            const emoji = client.emojis.cache.find((emoji) => emoji.name == emote);
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
