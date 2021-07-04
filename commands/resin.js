@@ -10,23 +10,22 @@ module.exports = {
         const { author } = message;
         const { id } = author;
 
-        function sendEmbed(requestType, resinAmount, emote) {
+        function sendEmbed(requestType, resinAmount) {
             let title = '';
 
             if (requestType === 'read') {
                 title = `${author.username}'s resin count`;
             } else if (requestType === 'write') {
                 title = 'Updated resin count!';
-            } else if (requestType === 'err') {
-                title = 'rusak';
             }
 
-            // eslint-disable-next-line no-shadow
-            const emoji = client.emojis.cache.find((emoji) => emoji.name == emote);
+            const resinEmoji = client.emojis.cache.find(
+                (emoji) => emoji.name === 'Aether_fragileresin'
+            );
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
-                .setDescription(`${emoji} ${resinAmount}`);
+                .setDescription(`${resinEmoji} ${resinAmount}`);
 
             message.channel.send(embed);
         }
@@ -38,9 +37,14 @@ module.exports = {
                 try {
                     const resin = await schema.findById(id);
                     if (resin === null) throw 'empty';
-                    sendEmbed('read', resin.resinCount, 'Aether_fragileresin');
+                    sendEmbed('read', resin.resinCount);
                 } catch (e) {
-                    sendEmbed('err', 'kw habis ngapain pantek', 'x');
+                    const xEm = client.emojis.cache.find((emoji) => emoji.name === 'x');
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle('rusak')
+                        .setDescription(`${xEm} kw habis ngapain pantek`);
+
+                    message.channel.send(embed);
                 } finally {
                     mongoose.connection.close();
                 }
@@ -60,7 +64,12 @@ module.exports = {
                     );
                     sendEmbed('write', args);
                 } catch (e) {
-                    sendEmbed('err', 'kw habis ngapain pantek', 'x');
+                    const xEm = client.emojis.cache.find((emoji) => emoji.name === 'x');
+                    const embed = new Discord.MessageEmbed()
+                        .setTitle('rusak')
+                        .setDescription(`${xEm} kw habis ngapain pantek`);
+
+                    message.channel.send(embed);
                 } finally {
                     mongoose.connection.close();
                 }
