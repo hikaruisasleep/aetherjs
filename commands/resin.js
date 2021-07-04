@@ -21,11 +21,11 @@ module.exports = {
                 title = 'Updated resin count!';
             }
 
-            const emoji = client.emojis.cache.find((emoji) => emoji.name === emote);
+            const sendEmoji = client.emojis.cache.find((emoji) => emoji.name === emote);
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
-                .setDescription(`${resinEmoji} ${resinAmount}`);
+                .setDescription(`${sendEmoji} ${resinAmount}`);
 
             message.channel.send(embed);
         }
