@@ -39,10 +39,9 @@ module.exports = {
                     if (resin === null) throw 'empty';
                     sendEmbed('read', resin.resinCount);
                 } catch (e) {
-                    const xEm = client.emojis.cache.find((emoji) => emoji.name === 'x');
                     const embed = new Discord.MessageEmbed()
                         .setTitle('rusak')
-                        .setDescription(`${xEm} kw habis ngapain pantek`);
+                        .setDescription('❌ kw habis ngapain pantek');
 
                     message.channel.send(embed);
                 } finally {
@@ -64,10 +63,9 @@ module.exports = {
                     );
                     sendEmbed('write', args);
                 } catch (e) {
-                    const xEm = client.emojis.cache.find((emoji) => emoji.name === 'x');
                     const embed = new Discord.MessageEmbed()
                         .setTitle('rusak')
-                        .setDescription(`${xEm} kw habis ngapain pantek`);
+                        .setDescription('❌ kw habis ngapain pantek');
 
                     message.channel.send(embed);
                 } finally {
