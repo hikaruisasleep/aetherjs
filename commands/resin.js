@@ -30,7 +30,7 @@ module.exports = {
             message.channel.send(embed);
         }
 
-        if (text === 'zero') {
+        if (args[0] === 'zero') {
             await mongo().then(async (mongoose) => {
                 try {
                     await schema.findByIdAndUpdate(
