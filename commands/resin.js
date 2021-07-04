@@ -21,11 +21,12 @@ module.exports = {
                 title = 'rusak';
             }
 
-            const sendEmoji = client.emojis.cache.find((emoji) => emoji.name === emote);
+            // eslint-disable-next-line no-shadow
+            const emoji = client.emojis.cache.find((emoji) => emoji.name === emote);
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
-                .setDescription(`${sendEmoji} ${resinAmount}`);
+                .setDescription(`${emoji} ${resinAmount}`);
 
             message.channel.send(embed);
         }
