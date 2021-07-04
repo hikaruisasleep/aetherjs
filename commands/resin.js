@@ -18,7 +18,7 @@ module.exports = {
             } else if (requestType === 'write') {
                 title = 'Updated resin count!';
             } else if (requestType === 'err') {
-                title = 'Updated resin count!';
+                title = 'rusak';
             }
 
             const sendEmoji = client.emojis.cache.find((emoji) => emoji.name === emote);
@@ -39,7 +39,7 @@ module.exports = {
                     if (resin === null) throw 'empty';
                     sendEmbed('read', resin.resinCount, 'Aether_fragileresin');
                 } catch (e) {
-                    sendEmbed('rusak', 'kw habis ngapain pantek', 'x');
+                    sendEmbed('err', 'kw habis ngapain pantek', 'x');
                 } finally {
                     mongoose.connection.close();
                 }
@@ -59,7 +59,7 @@ module.exports = {
                     );
                     sendEmbed('write', args);
                 } catch (e) {
-                    sendEmbed('rusak', 'kw habis ngapain pantek', 'x');
+                    sendEmbed('err', 'kw habis ngapain pantek', 'x');
                 } finally {
                     mongoose.connection.close();
                 }
