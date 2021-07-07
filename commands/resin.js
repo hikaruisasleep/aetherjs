@@ -5,13 +5,32 @@ const schema = require('../schemas/resin-schema');
 module.exports = {
     commands: ['resin', 'resincount'],
     minArgs: 0,
-    maxArgs: 1,
+    maxArgs: 2,
     callback: async (client, message, args, text) => {
         const { author } = message;
         const { id } = author;
 
-        function sendEmbed(requestType, resinAmount) {
+        function sendError(e) {
+            const embed = new Discord.MessageEmbed()
+                .setTitle('rusak')
+                .setDescription('❌ kw habis ngapain pantek')
+                .setFooter(e);
+
+            message.channel.send(embed);
+        }
+
+        function sendEmbed(
+            requestType,
+            resinAmount,
+            fragileAmount,
+            condensedAmount,
+            transientAmount
+        ) {
             let title = '';
+
+            let fragile = true;
+            let condensed = true;
+            let transient = true;
 
             if (requestType === 'read') {
                 title = `${author.username}'s resin count`;
@@ -19,18 +38,120 @@ module.exports = {
                 title = 'Updated resin count!';
             }
 
-            const resinEmoji = client.emojis.cache.find(
-                (emoji) => emoji.name === 'Aether_fragileresin'
+            const resinEmoji = client.emojis.cache.find((emoji) => emoji.name === 'Aether_resin');
+            const condensedEmoji = client.emojis.cache.find(
+                (emoji) => emoji.name === 'Aether_condensedresin'
+            );
+            const transientEmoji = client.emojis.cache.find(
+                (emoji) => emoji.name === 'Aether_transientresin'
             );
 
             const embed = new Discord.MessageEmbed()
                 .setTitle(title)
-                .setDescription(`${resinEmoji} ${resinAmount}`);
+                .addField(resinEmoji, resinAmount, false);
+            if (fragile) {
+                embed.addField(resinEmoji, fragileAmount, true);
+            }
+            if (condensed) {
+                embed.addField(condensedEmoji, condensedAmount, true);
+            }
+            if (transient) {
+                embed.addField(transientEmoji, transientAmount, true);
+            }
 
             message.channel.send(embed);
         }
 
-        if (args[0] === 'zero') {
+        if (!args[0]) {
+            await mongo().then(async (mongoose) => {
+                try {
+                    const resin = await schema.findById(id);
+                    if (!resin.resinCount) {
+                        await schema.findByIdAndUpdate(
+                            id,
+                            {
+                                resinCount: 0,
+                            },
+                            {
+                                upsert: true,
+                            }
+                        );
+                    }
+                    if (!resin.fragileCount) {
+                        await schema.findByIdAndUpdate(
+                            id,
+                            {
+                                fragileCount: 0,
+                            },
+                            {
+                                upsert: true,
+                            }
+                        );
+                    }
+                    if (!resin.condensedCount) {
+                        await schema.findByIdAndUpdate(
+                            id,
+                            {
+                                condensedCount: 0,
+                            },
+                            {
+                                upsert: true,
+                            }
+                        );
+                    }
+                    if (!resin.transientCount) {
+                        await schema.findByIdAndUpdate(
+                            id,
+                            {
+                                transientCount: 0,
+                            },
+                            {
+                                upsert: true,
+                            }
+                        );
+                    }
+                    sendEmbed(
+                        'read',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
+                } catch (e) {
+                    sendError(e);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
+            return;
+        } else if (!isNaN(args[0])) {
+            await mongo().then(async (mongoose) => {
+                try {
+                    await schema.findByIdAndUpdate(
+                        id,
+                        {
+                            resinCount: +args[0],
+                        },
+                        {
+                            upsert: true,
+                        }
+                    );
+                    const resin = await schema.findById(id);
+                    sendEmbed(
+                        'write',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
+                } catch (e) {
+                    sendError(e);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
+            return;
+        } else if (args[0] === '0') {
             await mongo().then(async (mongoose) => {
                 try {
                     await schema.findByIdAndUpdate(
@@ -42,62 +163,121 @@ module.exports = {
                             upsert: true,
                         }
                     );
-                    sendEmbed('write', args);
+                    const resin = await schema.findById(id);
+                    sendEmbed(
+                        'write',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
                 } catch (e) {
-                    const embed = new Discord.MessageEmbed()
-                        .setTitle('rusak')
-                        .setDescription('❌ kw habis ngapain pantek');
-
-                    message.channel.send(embed);
+                    sendError(e);
                 } finally {
                     mongoose.connection.close();
                 }
             });
             return;
-        }
-
-        args = +args;
-
-        if (!args) {
+        } else if (args[0] === 'condensed') {
             await mongo().then(async (mongoose) => {
                 try {
-                    const resin = await schema.findById(id);
-                    if (resin === null) throw 'empty';
-                    sendEmbed('read', resin.resinCount);
-                } catch (e) {
-                    const embed = new Discord.MessageEmbed()
-                        .setTitle('rusak')
-                        .setDescription('❌ kw habis ngapain pantek');
-
-                    message.channel.send(embed);
-                } finally {
-                    mongoose.connection.close();
-                }
-            });
-        } else {
-            await mongo().then(async (mongoose) => {
-                try {
-                    if (isNaN(args)) throw 'NaN';
+                    if (isNaN(args[1])) {
+                        throw `TypeError: cannot insert "args[1]" (type: ${typeof args[1]}) into field Number: isNaN`;
+                    }
+                    if (args[1] > 5) {
+                        throw 'gila banyak kali condensed mu. max 5';
+                    }
                     await schema.findByIdAndUpdate(
                         id,
                         {
-                            resinCount: args,
+                            condensedCount: +args[1],
                         },
                         {
                             upsert: true,
                         }
                     );
-                    sendEmbed('write', args);
+                    const resin = await schema.findById(id);
+                    sendEmbed(
+                        'write',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
                 } catch (e) {
-                    const embed = new Discord.MessageEmbed()
-                        .setTitle('rusak')
-                        .setDescription('❌ kw habis ngapain pantek');
-
-                    message.channel.send(embed);
+                    sendError(e);
                 } finally {
                     mongoose.connection.close();
                 }
             });
+            return;
+        } else if (args[0] === 'fragile') {
+            await mongo().then(async (mongoose) => {
+                try {
+                    if (isNaN(args[1])) {
+                        throw `TypeError: cannot insert "args[1]" (type: ${typeof args[1]}) into field Number: isNaN`;
+                    }
+                    await schema.findByIdAndUpdate(
+                        id,
+                        {
+                            fragileCount: +args[1],
+                        },
+                        {
+                            upsert: true,
+                        }
+                    );
+                    const resin = await schema.findById(id);
+                    sendEmbed(
+                        'write',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
+                } catch (e) {
+                    sendError(e);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
+            return;
+        } else if (args[0] === 'transient') {
+            await mongo().then(async (mongoose) => {
+                try {
+                    if (isNaN(args[1])) {
+                        throw `TypeError: cannot insert "args[1]" (type: ${typeof args[1]}) into field Number: isNaN`;
+                    }
+                    if (args[1] > 2) {
+                        throw 'ga kena marah tubby apa kw beli banyak gitu. max 2';
+                    }
+                    await schema.findByIdAndUpdate(
+                        id,
+                        {
+                            transientCount: +args[1],
+                        },
+                        {
+                            upsert: true,
+                        }
+                    );
+                    const resin = await schema.findById(id);
+                    sendEmbed(
+                        'write',
+                        resin.resinCount,
+                        resin.fragileCount,
+                        resin.condensedCount,
+                        resin.transientCount
+                    );
+                } catch (e) {
+                    sendError(e);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
+            return;
+        } else {
+            sendError(
+                `Unknown argument "${args[0]}".\nAccepted arguments are: | <resinAmount> | condensed <condensedAmount> | fragile <fragileAmount> | transient <transientAmount>`
+            );
         }
     },
 };

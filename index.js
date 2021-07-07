@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+const schedule = require('node-schedule');
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -21,7 +22,6 @@ client.on('ready', async () => {
     });
 
     const general = client.channels.cache.get('776357197508116481');
-    const resinEmoji = client.emojis.cache.find((emoji) => emoji.name === 'Aether_fragileresin');
 
     const baseFile = 'command-base.js';
     const commandBase = require(`./commands/${baseFile}`);
@@ -57,9 +57,7 @@ client.on('ready', async () => {
                         await doc.save();
                         if (doc.resinCount === 160) {
                             const user = client.users.cache.get(doc._id);
-                            const embed = new Discord.MessageEmbed()
-                                .setTitle('Resin full')
-                                .setDescription(`${resinEmoji} ${doc.resinCount}`);
+                            const embed = new Discord.MessageEmbed().setTitle('Resin full');
 
                             general.send(`${user}`, { embed: embed });
                         }
@@ -70,6 +68,44 @@ client.on('ready', async () => {
             }
         });
     }, 480000);
+
+    schedule.scheduleJob('0 13 * * 0', async () => {
+        const schema = require('./schemas/resin-schema');
+        const transientEmoji = client.emojis.cache.find(
+            (emoji) => emoji.name === 'Aether_transientresin'
+        );
+        await mongo().then(async (mongoose) => {
+            try {
+                await schema.find((err, docs) => {
+                    if (err) {
+                        throw err;
+                    }
+
+                    docs.forEach(async (doc) => {
+                        if (doc.transientCount) {
+                            const embed = new Discord.MessageEmbed().addField(
+                                transientEmoji,
+                                'BESOK SENIN AYO HABISIN TRANSIENTMU',
+                                false
+                            );
+
+                            const user = client.users.cache.get(doc._id);
+
+                            general.send(`${user}`, { embed: embed });
+                        }
+                    });
+                });
+            } catch (e) {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle('rusak')
+                    .setDescription(`❌ ${e}`);
+
+                general.send(embed);
+            } finally {
+                mongoose.connection.close();
+            }
+        });
+    });
 });
 
 client.on('message', (message) => {
