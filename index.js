@@ -83,11 +83,9 @@ client.on('ready', async () => {
 
                     docs.forEach(async (doc) => {
                         if (doc.transientCount) {
-                            const embed = new Discord.MessageEmbed().addField(
-                                transientEmoji,
-                                'BESOK SENIN AYO HABISIN TRANSIENTMU',
-                                false
-                            );
+                            const embed = new Discord.MessageEmbed()
+                                .setTitle('BESOK SENIN AYO HABISIN TRANSIENTMU')
+                                .addField(transientEmoji, doc.transientCount, false);
 
                             const user = client.users.cache.get(doc._id);
 
