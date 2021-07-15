@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const schedule = require('node-schedule');
+const scheduler = require('node-schedule');
 require('dotenv').config();
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -9,6 +9,7 @@ const { prefix } = require('./config.json');
 const mongo = require('./mongo');
 
 const lines = require('./lines.json');
+const schedule = require('./jadwal.json');
 
 client.on('ready', async () => {
     console.log('online');
@@ -21,7 +22,10 @@ client.on('ready', async () => {
         }
     });
 
+    const server = client.guilds.cache.get('775253878312009768');
     const general = client.channels.cache.get('776357197508116481');
+    const linkchannel = client.channels.cache.get('775254327698784297');
+    const ipa2 = server.roles.cache.find(role => (role.id) === '784219177564635167');
 
     const baseFile = 'command-base.js';
     const commandBase = require(`./commands/${baseFile}`);
@@ -69,7 +73,7 @@ client.on('ready', async () => {
         });
     }, 480000);
 
-    schedule.scheduleJob('0 13 * * 0', async () => {
+    scheduler.scheduleJob('0 13 * * 0', async () => {
         const schema = require('./schemas/resin-schema');
         const transientEmoji = client.emojis.cache.find(
             (emoji) => emoji.name === 'Aether_transientresin'
@@ -104,6 +108,21 @@ client.on('ready', async () => {
             }
         });
     });
+
+    for(const table of schedule) {
+        for(const column of table.schedule) {
+            scheduler.scheduleJob(`${column.cronTime.cronMinute} ${column.cronTime.cronHour} * * ${table.cronDay}`, () => {
+                const embed = new Discord.MessageEmbed()
+                    .setTitle('Pelajaran baru')
+                    .addFields(
+                        { name: 'Pelajaran', value: column.lesson },
+                        { name: 'Jam', value: column.time }
+                    );
+
+                linkchannel.send(`${ipa2}`, { embed: embed });
+            });
+        }
+    }
 });
 
 client.on('message', (message) => {

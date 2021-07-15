@@ -1,0 +1,352 @@
+[
+    {
+        "day" : "senin",
+        "cronDay": 1,
+        "schedule": [
+            {
+                "time": "08:00",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 0
+                },
+                "lesson": "Matematika Peminatan"
+            },
+            {
+                "time": "08:30",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 30
+                },
+                "lesson": "Matematika Peminatan"
+            },
+            {
+                "time": "09:00",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 0
+                },
+                "lesson": "B. Indo"
+            },
+            {
+                "time": "09:30",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 30
+                },
+                "lesson": "B. Indo"
+            },
+            {
+                "time": "10:00",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 0
+                },
+                "lesson": "Kimia"
+            },
+            {
+                "time": "10:30",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 30
+                },
+                "lesson": "Kimia"
+            },
+            {
+                "time": "11:00",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 0
+                },
+                "lesson": "Kimia"
+            },
+            {
+                "time": "11:30",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 30
+                },
+                "lesson": "Pulang"
+            }
+        ]
+    },
+    {
+        "day" : "selasa",
+        "cronDay": 2,
+        "schedule": [
+            {
+                "time": "08:00",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 0
+                },
+                "lesson": "B. Indo"
+            },
+            {
+                "time": "08:30",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 30
+                },
+                "lesson": "B. Indo"
+            },
+            {
+                "time": "09:00",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 0
+                },
+                "lesson": "Mat Wajib"
+            },
+            {
+                "time": "09:30",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 30
+                },
+                "lesson": "Mat Wajib"
+            },
+            {
+                "time": "10:00",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 0
+                },
+                "lesson": "Mat Wajib"
+            },
+            {
+                "time": "10:30",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 30
+                },
+                "lesson": "PE | Comp | Musik"
+            },
+            {
+                "time": "11:00",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 0
+                },
+                "lesson": "PE | Comp | Musik"
+            },
+            {
+                "time": "11:30",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 30
+                },
+                "lesson": "Pulang"
+            }
+        ]
+    },
+    {
+        "day" : "rabu",
+        "cronDay": 3,
+        "schedule": [
+            {
+                "time": "08:00",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 0
+                },
+                "lesson": "Biologi"
+            },
+            {
+                "time": "08:30",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 30
+                },
+                "lesson": "Biologi"
+            },
+            {
+                "time": "09:00",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 0
+                },
+                "lesson": "Biologi"
+            },
+            {
+                "time": "09:30",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 30
+                },
+                "lesson": "Prakarya | Mandarin"
+            },
+            {
+                "time": "10:00",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 0
+                },
+                "lesson": "Prakarya | Mandarin"
+            },
+            {
+                "time": "10:30",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 30
+                },
+                "lesson": "Agama"
+            },
+            {
+                "time": "11:00",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 0
+                },
+                "lesson": "Agama"
+            },
+            {
+                "time": "11:30",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 30
+                },
+                "lesson": "Pulang"
+            }
+        ]
+    },
+    {
+        "day" : "kamis",
+        "cronDay": 4,
+        "schedule": [
+            {
+                "time": "08:00",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 0
+                },
+                "lesson": "English"
+            },
+            {
+                "time": "08:30",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 30
+                },
+                "lesson": "English"
+            },
+            {
+                "time": "09:00",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 0
+                },
+                "lesson": "Fisika"
+            },
+            {
+                "time": "09:30",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 30
+                },
+                "lesson": "Fisika"
+            },
+            {
+                "time": "10:00",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 0
+                },
+                "lesson": "Fisika"
+            },
+            {
+                "time": "10:30",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 30
+                },
+                "lesson": "Fisika"
+            },
+            {
+                "time": "11:00",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 0
+                },
+                "lesson": "Sejarah"
+            },
+            {
+                "time": "11:30",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 30
+                },
+                "lesson": "Pulang"
+            }
+        ]
+    },
+    {
+        "day" : "jumat",
+        "cronDay": 5,
+        "schedule": [
+            {
+                "time": "08:00",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 0
+                },
+                "lesson": "Worship"
+            },
+            {
+                "time": "08:30",
+                "cronTime": {
+                    "cronHour": 8,
+                    "cronMinute": 30
+                },
+                "lesson": "Mat Wajib"
+            },
+            {
+                "time": "09:00",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 0
+                },
+                "lesson": "Mat Wajib"
+            },
+            {
+                "time": "09:30",
+                "cronTime": {
+                    "cronHour": 9,
+                    "cronMinute": 30
+                },
+                "lesson": "PKn"
+            },
+            {
+                "time": "10:00",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 0
+                },
+                "lesson": "PKn"
+            },
+            {
+                "time": "10:30",
+                "cronTime": {
+                    "cronHour": 10,
+                    "cronMinute": 30
+                },
+                "lesson": "English"
+            },
+            {
+                "time": "11:00",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 0
+                },
+                "lesson": "English"
+            },
+            {
+                "time": "11:30",
+                "cronTime": {
+                    "cronHour": 11,
+                    "cronMinute": 30
+                },
+                "lesson": "Pulang"
+            }
+        ]
+    }
+]
