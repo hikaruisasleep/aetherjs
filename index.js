@@ -22,6 +22,10 @@ client.on('ready', async () => {
         }
     });
 
+    client.user.setPresence({ activity: { name: 'cari adek', type: 'COMPETING' }, status: 'online' })
+        .then(console.log)
+        .catch(console.error);
+
     const server = client.guilds.cache.get('775253878312009768');
     const general = client.channels.cache.get('776357197508116481');
     const linkchannel = client.channels.cache.get('775254327698784297');
