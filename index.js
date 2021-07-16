@@ -10,6 +10,7 @@ const mongo = require('./mongo');
 
 const lines = require('./lines.json');
 const schedule = require('./jadwal.json');
+const links = require('./links.json');
 
 client.on('ready', async () => {
     console.log('online');
@@ -119,9 +120,10 @@ client.on('ready', async () => {
                 const embed = new Discord.MessageEmbed()
                     .setTitle('Pelajaran baru')
                     .addFields(
-                        { name: 'Pelajaran', value: column.lesson },
-                        { name: 'Jam', value: column.time }
-                    );
+                        { name: 'Pelajaran', value: column.lesson, inline: true },
+                        { name: 'Jam', value: column.time, inline: true }
+                    )
+                    .addField('Link Zoom ABRAHAM IPA 2', links[0].link);
 
                 linkchannel.send(`${ipa2}`, { embed: embed });
             });
