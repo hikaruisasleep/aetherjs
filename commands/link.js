@@ -27,8 +27,13 @@ module.exports = {
             for (const linkSet of links) {
                 if (cleantext == linkSet.lesson.toLowerCase().replace(regex, '').replace(/ /g, '')) {
                     const embed = new Discord.MessageEmbed()
-                        .setTitle('Link zoom')
-                        .addField(`Link ${linkSet.lesson}`, linkSet.link);
+                        .setTitle('Link zoom');
+
+                    if (linkSet.lesson.toLowerCase().replace(regex, '').replace(/ /g, '') == "universal")
+                        embed.addField(`Link ABRAHAM IPA 2`, linkSet.link);
+                    } else {
+                        embed.addField(`Link ${linkSet.lesson}`, linkSet.link);
+                    }
 
                     message.channel.send(embed);
                     return;
