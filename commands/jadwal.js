@@ -11,7 +11,7 @@ module.exports = {
             for(const table of schedule) {
                 if(strftime('%e', date) == table.day) {
                     for(const column of table.schedule) {
-                        if(strftime('%k') == column.cronTime.cronHour) {
+                        if(strftime('%k') == column.cronTime.cronHour && column.lesson) {
                             return column.lesson;
                         } else {
                             return 'lagi ga belajar';
