@@ -122,8 +122,11 @@ client.on('ready', async () => {
                     .addFields(
                         { name: 'Pelajaran', value: column.lesson, inline: true },
                         { name: 'Jam', value: column.time, inline: true }
-                    )
-                    .addField('Link Zoom ABRAHAM IPA 2', links[0].link);
+                    );
+
+                if (column.lesson != 'Pulang') {
+                    embed.addField('Link Zoom ABRAHAM IPA 2', links[0].link);
+                }
 
                 linkchannel.send(`${ipa2}`, { embed: embed });
             });
