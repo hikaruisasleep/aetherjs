@@ -13,6 +13,8 @@ module.exports = {
                     for(const column of table.schedule) {
                         if(strftime('%k') == column.cronTime.cronHour) {
                             return column.lesson;
+                        } else {
+                            return 'lagi ga belajar';
                         }
                     }
                 }
