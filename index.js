@@ -15,6 +15,15 @@ const links = require('./links.json');
 client.on('ready', async () => {
     console.log('online');
 
+    function sendError(e) {
+        const embed = new Discord.MessageEmbed()
+            .setTitle('rusak')
+            .setDescription('❌ kw habis ngapain pantek')
+            .setFooter(e);
+
+        return embed;
+    }
+
     await mongo().then((mongoose) => {
         try {
             console.log('Connected to DB');
@@ -55,7 +64,7 @@ client.on('ready', async () => {
             try {
                 await schema.find((err, docs) => {
                     if (err) {
-                        return console.error(err);
+                        throw err;
                     }
 
                     docs.forEach(async (doc) => {
@@ -72,6 +81,8 @@ client.on('ready', async () => {
                         }
                     });
                 });
+            } catch(e) {
+                general.send.sendError(e);
             } finally {
                 mongoose.connection.close();
             }
@@ -143,4 +154,4 @@ client.on('message', (message) => {
     }
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN2);
