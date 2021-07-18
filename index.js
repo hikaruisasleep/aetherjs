@@ -82,7 +82,7 @@ client.on('ready', async () => {
                     });
                 });
             } catch(e) {
-                general.send.sendError(e);
+                general.send(sendError(e));
             } finally {
                 mongoose.connection.close();
             }
