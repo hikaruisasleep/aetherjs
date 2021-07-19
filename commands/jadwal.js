@@ -20,6 +20,8 @@ module.exports = {
                             return 'lagi ga belajar';
                         }
                     }
+                } else {
+                    return 'lagi ga belajar';
                 }
             }
         }
