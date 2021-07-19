@@ -9,9 +9,10 @@ module.exports = {
 
         function currentLesson() {
             for(const table of schedule) {
+                console.log(date);
                 if(strftime('%e', date) == table.day) {
                     for(const column of table.schedule) {
-                        if(strftime('%k') == column.cronTime.cronHour && column.lesson) {
+                        if((strftime('%k', date) == column.cronTime.cronHour) && column.lesson) {
                             return column.lesson;
                         } else {
                             return 'lagi ga belajar';
