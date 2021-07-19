@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const mongoPath = 'mongodb://localhost/aether' || process.env.MONGODB_URI;
+const mongoPath = process.env.MONGODB_URI;
 
 module.exports = async () => {
     await mongoose.connect(mongoPath, {
