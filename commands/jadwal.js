@@ -17,8 +17,6 @@ module.exports = {
                         console.log(column.cronTime.cronHour);
                         if((strftime('%k', date) == column.cronTime.cronHour) && column.lesson) {
                             return column.lesson;
-                        } else {
-                            return 'lagi ga belajar';
                         }
                     }
                 } else {
