@@ -9,12 +9,8 @@ module.exports = {
 
         function currentLesson() {
             for(const table of schedule) {
-                console.log(strftime('%A', date).toLowerCase());
-                console.log(table.day);
                 if(strftime('%A', date).toLowerCase() == table.day) {
                     for(const column of table.schedule) {
-                        console.log(strftime('%k', date).toLowerCase());
-                        console.log(column.cronTime.cronHour);
                         if((strftime('%k', date) == column.cronTime.cronHour) && column.lesson) {
                             return column.lesson;
                         }
