@@ -39,6 +39,7 @@ client.on('ready', async () => {
     const server = client.guilds.cache.get('775253878312009768');
     const general = client.channels.cache.get('776357197508116481');
     const linkchannel = client.channels.cache.get('775254327698784297');
+    const schgen = client.channels.cache.get('775253878312009774');
     const ipa2 = server.roles.cache.find(role => (role.id) === '784219177564635167');
 
     const baseFile = 'command-base.js';
@@ -143,6 +144,20 @@ client.on('ready', async () => {
             });
         }
     }
+
+    scheduler.scheduleJob('40 7 * * 1-5', () => {
+        for (let i; i++; i < 50) {
+            setInterval(() => {
+                schgen.send(`${ipa2} bangun`);
+            }, 100);
+        }
+
+        const embed = new Discord.MessageEmbed()
+            .setTitle('Yok homeroom yok')
+            .addField('Link Zoom ABRAHAM IPA 2', links[0].link);
+
+        schgen.send(`${ipa2}`, { embed: embed });
+    });
 });
 
 client.on('message', (message) => {
