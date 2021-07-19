@@ -33,7 +33,7 @@ const strftime = (sFormat, date) => {
         nMonth = date.getMonth(),
         nYear = date.getFullYear(),
         nHour = date.getHours(),
-        aDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        aDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
         aMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         aDayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
         isLeapYear = function () {

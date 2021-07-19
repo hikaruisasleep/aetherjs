@@ -32,9 +32,7 @@ client.on('ready', async () => {
         }
     });
 
-    client.user.setPresence({ activity: { name: 'cari adek', type: 'COMPETING' }, status: 'online' })
-        .then(console.log)
-        .catch(console.error);
+    client.user.setPresence({ activity: { name: 'cari adek', type: 'COMPETING' }, status: 'online' }).catch(console.error);
 
     const server = client.guilds.cache.get('775253878312009768');
     const general = client.channels.cache.get('776357197508116481');
@@ -158,15 +156,6 @@ client.on('ready', async () => {
 
         schgen.send(`${ipa2}`, { embed: embed });
     });
-});
-
-client.on('message', (message) => {
-    const { content } = message;
-
-    if (content == prefix) {
-        const line = lines[Math.floor(Math.random() * lines.length)];
-        message.channel.send(line);
-    }
 });
 
 client.login(process.env.TOKEN);

@@ -9,10 +9,7 @@ module.exports = {
 
         function currentLesson() {
             for(const table of schedule) {
-                console.log(date);
-                console.log(strftime('%A', date));
-                console.log(strftime('%k', date));
-                if(strftime('%A', date) == table.day) {
+                if(strftime('%A', date).toLowerCase() == table.day) {
                     for(const column of table.schedule) {
                         if((strftime('%k', date) == column.cronTime.cronHour) && column.lesson) {
                             return column.lesson;
@@ -29,8 +26,9 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setTitle('Jadwal')
             .addFields(
+                { name: 'Pelajaran', value: currentLesson(), inline: false },
+                { name: 'Hari', value: `${strftime('%A', date)}`, inline: true },
                 { name: 'Jam', value: `${strftime('%H:%M', date)}`, inline: true },
-                { name: 'Pelajaran', value: currentLesson(), inline: true }
             )
             .setImage('https://cdn.discordapp.com/attachments/775253878312009775/864298701556285450/1626135257323.jpg');
 
