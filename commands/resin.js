@@ -274,6 +274,37 @@ module.exports = {
                 }
             });
             return;
+        } else if (args[0] === 'forceup') {
+            if (!author.hasPermission('ADMINISTRATOR')) {
+                throw 'PermissionError: current context does not satisfy rule `author.HasPermission(\'ADMINISTRATOR\')`';
+            }
+            await mongo().then(async (mongoose) => {
+                try {
+                    await schema.find((err, docs) => {
+                        if (err) {
+                            throw err;
+                        }
+
+                        docs.forEach(async (doc) => {
+                            if (doc.resinCount >= 160) {
+                                return;
+                            }
+                            doc.resinCount++;
+                            await doc.save();
+                            if (doc.resinCount === 160) {
+                                const user = client.users.cache.get(doc._id);
+                                const embed = new Discord.MessageEmbed().setTitle('Resin full');
+
+                                message.channel.send(`${user}`, { embed: embed });
+                            }
+                        });
+                    });
+                } catch(e) {
+                    sendError(e);
+                } finally {
+                    mongoose.connection.close();
+                }
+            });
         } else {
             sendError(
                 `Unknown argument "${args[0]}".\nAccepted arguments are: | <resinAmount> | condensed <condensedAmount> | fragile <fragileAmount> | transient <transientAmount>`
